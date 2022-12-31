@@ -15,7 +15,7 @@ import { NbEvaIconsModule } from '@nebular/eva-icons';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    NbThemeModule.forRoot({ name: 'corporate' }),
+    NbThemeModule.forRoot(),
     NbLayoutModule,
     NbEvaIconsModule
   ],
