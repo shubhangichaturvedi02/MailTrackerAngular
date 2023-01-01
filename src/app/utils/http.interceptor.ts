@@ -22,9 +22,6 @@ export class Interceptor implements HttpInterceptor {
     request = request.clone({
       setHeaders: {
         Authorization: this.auth.getToken(),
-      },
-      setParams: {
-        selectedUserId: this.auth.selectedUserId,
       }
     });
     return next.handle(request)

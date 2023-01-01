@@ -10,6 +10,7 @@ import {
   NbInputModule,
   NbLayoutModule
 } from '@nebular/theme';
+import {FormsModule} from "@angular/forms";
 
 
 
@@ -17,15 +18,16 @@ import {
   declarations: [
     LoginComponent
   ],
-  imports: [
-    CommonModule,
-    AuthRoutingModule,
-    NbCardModule,
-    NbInputModule,
-    NbLayoutModule,
-    NbFormFieldModule,
-    NbIconModule,
-    NbButtonModule
-  ]
+    imports: [
+        CommonModule,
+        AuthRoutingModule,
+        NbCardModule,
+        NbInputModule,
+        NbLayoutModule,
+        NbFormFieldModule,
+        NbIconModule,
+        NbButtonModule,
+        FormsModule
+    ]
 })
 export class AuthModule { }

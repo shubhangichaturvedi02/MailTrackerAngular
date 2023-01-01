@@ -3,10 +3,10 @@
 
       <nb-card class="col-4 mt-4" style="height: 400px;">
         <nb-card-body style="display: inline" class="col-12">
-          <input type="text" nbInput placeholder="username" class="col-12" fullWidth fieldSize="large" style="margin-top: 160px;">
+          <input type="text" nbInput placeholder="username" class="col-12" fullWidth fieldSize="large" style="margin-top: 160px;" [(ngModel)]="email">
 
           <nb-form-field>
-            <input type="password" nbInput placeholder="password" class="col-12 mt-4" fullWidth fieldSize="large">
+            <input type="password" nbInput placeholder="password" class="col-12 mt-4" fullWidth fieldSize="large" [(ngModel)]="password">
             <button nbSuffix nbButton ghost (click)="toggleShowPassword()" class="mt-4">
               <nb-icon [icon]="showPassword ? 'eye-outline' : 'eye-off-2-outline'"
                        pack="eva"
@@ -14,7 +14,7 @@
               </nb-icon>
             </button>
           </nb-form-field>
-          <button nbButton class="mt-4 float-end" status="primary" size="large">Login</button>
+          <button nbButton class="mt-4 float-end" status="primary" size="large" (click)="login(email, password)">Login</button>
         </nb-card-body>
       </nb-card>
 
