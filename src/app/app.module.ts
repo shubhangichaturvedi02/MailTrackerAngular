@@ -7,6 +7,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NbThemeModule, NbLayoutModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {Interceptor} from './utils/http.interceptor';
+import {AuthService} from './utils/auth.service';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NbEvaIconsModule,
     NgbModule
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    {provide: HTTP_INTERCEPTORS, useClass: Interceptor, multi: true},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

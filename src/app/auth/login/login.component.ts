@@ -12,4 +12,16 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  showPassword = true;
+
+  getInputType() {
+    if (this.showPassword) {
+      return 'text';
+    }
+    return 'password';
+  }
+
+  toggleShowPassword() {
+    this.showPassword = !this.showPassword;
+  }
 }

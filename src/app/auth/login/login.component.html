@@ -2,9 +2,19 @@
   <nb-layout-column class="d-flex justify-content-center align-items-center">
 
       <nb-card class="col-4 mt-4" style="height: 400px;">
-        <nb-card-body class="" style="display: inline">
-          <input type="text" nbInput placeholder="username">
-          <input type="text" nbInput placeholder="password">
+        <nb-card-body style="display: inline" class="col-12">
+          <input type="text" nbInput placeholder="username" class="col-12" fullWidth fieldSize="large" style="margin-top: 160px;">
+
+          <nb-form-field>
+            <input type="password" nbInput placeholder="password" class="col-12 mt-4" fullWidth fieldSize="large">
+            <button nbSuffix nbButton ghost (click)="toggleShowPassword()" class="mt-4">
+              <nb-icon [icon]="showPassword ? 'eye-outline' : 'eye-off-2-outline'"
+                       pack="eva"
+                       [attr.aria-label]="showPassword ? 'hide password' : 'show password'">
+              </nb-icon>
+            </button>
+          </nb-form-field>
+          <button nbButton class="mt-4 float-end" status="primary" size="large">Login</button>
         </nb-card-body>
       </nb-card>
 
