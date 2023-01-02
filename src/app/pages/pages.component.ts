@@ -1,17 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {NbSortDirection, NbSortRequest, NbTreeGridDataSource, NbTreeGridDataSourceBuilder} from '@nebular/theme';
+import {NbTreeGridDataSourceBuilder} from '@nebular/theme';
+import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
 
-interface TreeNode<T> {
-  data: T;
-  children?: TreeNode<T>[];
-  expanded?: boolean;
-}
-
-interface FSEntry {
-  name: string;
-  size: string;
-  kind: string;
-  items?: number;
+interface Mail {
+  body: string;
+  sent_time: string;
+  subject: string;
+  user_name: string;
 }
 @Component({
   selector: 'app-pages',
@@ -19,79 +15,39 @@ interface FSEntry {
   styleUrls: ['./pages.component.scss']
 })
 export class PagesComponent implements OnInit {
+  notmaildata: Mail[] = [];
+  recmaildata: Mail[] = [];
 
-  customColumn = 'name';
-  defaultColumns = [ 'size', 'kind', 'items' ];
-  allColumns = [ this.customColumn, ...this.defaultColumns ];
-
-  dataSource: NbTreeGridDataSource<any>;
-
-  sortColumn: string = '';
-  sortDirection: NbSortDirection = NbSortDirection.NONE;
-
-  constructor(private dataSourceBuilder: NbTreeGridDataSourceBuilder<any>) {
-    this.dataSource = this.dataSourceBuilder.create(this.data);
+  data = [{
+    values: [],
+    labels: [],
+    type: 'pie'
+  }];
+  layout = {
+    height: 400,
+    width: 500,
+  };
+  constructor(private dataSourceBuilder: NbTreeGridDataSourceBuilder<any>,
+              private http: HttpClient) {
   }
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    this.fetchMailAnalytics().then();
   }
 
-  changeSort(sortRequest: NbSortRequest): void {
-    this.dataSource.sort(sortRequest);
-    this.sortColumn = sortRequest.column;
-    this.sortDirection = sortRequest.direction;
+
+  async fetchMailAnalytics() {
+    const response: Observable<any> = this.http.get('http://127.0.0.1:5000/mail-analytics');
+    response.subscribe((res) => {console.log(res)
+      this.notmaildata = res.not_opened_mails;
+      this.recmaildata = res.opened_mails;
+      const resp: any[] = res.data_breakup;
+      resp.forEach(e => {
+        // @ts-ignore
+        this.data[0].values.push(e.value);
+        // @ts-ignore
+        this.data[0].labels.push(e.name);
+      });
+    });
   }
-
-  getDirection(column: string): NbSortDirection {
-    if (column === this.sortColumn) {
-      return this.sortDirection;
-    }
-    return NbSortDirection.NONE;
-  }
-
-  private data: TreeNode<FSEntry>[] = [
-    {
-      data: { name: 'Projects', size: '1.8 MB', items: 5, kind: 'dir' },
-      children: [
-        { data: { name: 'project-1.doc', kind: 'doc', size: '240 KB' } },
-        { data: { name: 'project-2.doc', kind: 'doc', size: '290 KB' } },
-        {
-          data: { name: 'project-3', kind: 'dir', size: '466 KB', items: 3 },
-          children: [
-            { data: { name: 'project-3A.doc', kind: 'doc', size: '200 KB' } },
-            { data: { name: 'project-3B.doc', kind: 'doc', size: '266 KB' } },
-            { data: { name: 'project-3C.doc', kind: 'doc', size: '0' } },
-          ],
-        },
-        { data: { name: 'project-4.docx', kind: 'docx', size: '900 KB' } },
-      ],
-    },
-    {
-      data: { name: 'Reports', kind: 'dir', size: '400 KB', items: 2 },
-      children: [
-        {
-          data: { name: 'Report 1', kind: 'dir', size: '100 KB', items: 1 },
-          children: [
-            { data: { name: 'report-1.doc', kind: 'doc', size: '100 KB' } },
-          ],
-        },
-        {
-          data: { name: 'Report 2', kind: 'dir', size: '300 KB', items: 2 },
-          children: [
-            { data: { name: 'report-2.doc', kind: 'doc', size: '290 KB' } },
-            { data: { name: 'report-2-note.txt', kind: 'txt', size: '10 KB' } },
-          ],
-        },
-      ],
-    },
-    {
-      data: { name: 'Other', kind: 'dir', size: '109 MB', items: 2 },
-      children: [
-        { data: { name: 'backup.bkp', kind: 'bkp', size: '107 MB' } },
-        { data: { name: 'secret-note.txt', kind: 'txt', size: '2 MB' } },
-      ],
-    },
-  ];
-
 }

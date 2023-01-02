@@ -8,37 +8,58 @@
     <nb-card>
       <nb-card-body>
 
-        <table [nbTreeGrid]="dataSource" nbSort (sort)="changeSort($event)" equalColumnsWidth>
+        <nb-tabset>
+          <nb-tab tabTitle="Not Received">
+            <table class="table">
+              <thead>
+              <tr>
+                <th scope="col">Body</th>
+                <th scope="col">Sent Time</th>
+                <th scope="col">Subject</th>
+                <th scope="col">User Name</th>
+              </tr>
+              </thead>
 
-          <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allColumns" class="table-primary" style="background: #e5a4a4; border-radius: 5px;"></tr>
-          <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: allColumns"></tr>
+              <tbody>
+              <tr *ngFor="let mail of notmaildata">
+                <td>{{mail.body}}</td>
+                <td>{{mail.sent_time}}</td>
+                <td>{{mail.subject}}</td>
+                <td>{{mail.user_name}}</td>
+              </tr>
+              </tbody>
+            </table>
 
-          <ng-container [nbTreeGridColumnDef]="customColumn">
-            <th nbTreeGridHeaderCell [nbSortHeader]="getDirection(customColumn)" *nbTreeGridHeaderCellDef>
-              {{customColumn}}
-            </th>
+          </nb-tab>
+          <nb-tab tabTitle="Received">
+            <table class="table">
+              <thead>
+              <tr>
+                <th scope="col">Body</th>
+                <th scope="col">Sent Time</th>
+                <th scope="col">Subject</th>
+                <th scope="col">User Name</th>
+              </tr>
+              </thead>
 
-            <td nbTreeGridCell *nbTreeGridCellDef="let row">
+              <tbody>
+              <tr *ngFor="let mail of recmaildata">
+                <td>{{mail.body}}</td>
+                <td>{{mail.sent_time}}</td>
+                <td>{{mail.subject}}</td>
+                <td>{{mail.user_name}}</td>
+              </tr>
+              </tbody>
+            </table>
 
-              <nb-tree-grid-row-toggle
-                [expanded]="row.expanded"
-                *ngIf="row.data.kind === 'dir'">
-              </nb-tree-grid-row-toggle>
+          </nb-tab>
 
-              {{row.data.name}}
+          <nb-tab tabTitle="Stats">
+            <div id='myDiv'></div>
+            <plotly-plot [data]="data" [layout]="layout"></plotly-plot>
+          </nb-tab>
+        </nb-tabset>
 
-            </td>
-          </ng-container>
-
-          <ng-container *ngFor="let column of defaultColumns" [nbTreeGridColumnDef]="column">
-            <th nbTreeGridHeaderCell [nbSortHeader]="getDirection(column)" *nbTreeGridHeaderCellDef class="table-primary">
-              {{column}}
-            </th>
-
-            <td nbTreeGridCell *nbTreeGridCellDef="let row">{{row.data[column]}}</td>
-          </ng-container>
-
-        </table>
 
       </nb-card-body>
     </nb-card>

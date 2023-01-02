@@ -23,6 +23,7 @@ export class AuthService {
       }));
   }
   getToken() {
-    return 'undefined';
+    const token: any = localStorage.getItem('token') ;
+    return token;
   }
 }

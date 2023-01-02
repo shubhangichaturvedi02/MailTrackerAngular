@@ -4,7 +4,7 @@ import {AuthGuardService} from './utils/auth-guard.service';
 
 const routes: Routes = [
   {
-    path: 'app', canActivate: [AuthGuardService],
+    path: 'app',
     loadChildren: () => import('./pages/pages.module')
       .then(m => m.PagesModule),
   },

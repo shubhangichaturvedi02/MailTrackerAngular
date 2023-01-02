@@ -6,15 +6,15 @@ import {PagesComponent} from './pages.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'pages/mail',
     component: PagesComponent,
-    children: [
+  },
       {
-        path: 'analytics',
+        path: 'pages/analytics',
         component: AnalyticsComponent
       }
-    ]
-  }
+
+
 ];
 
 @NgModule({

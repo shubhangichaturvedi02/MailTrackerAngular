@@ -10,7 +10,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {HTTP_INTERCEPTORS, HttpClientJsonpModule, HttpClientModule} from '@angular/common/http';
 import {Interceptor} from './utils/http.interceptor';
 import {AuthService} from './utils/auth.service';
+import {PlotlyModule} from "angular-plotly.js";
+import * as PlotlyJS from 'plotly.js-dist-min';
 
+PlotlyModule.plotlyjs = PlotlyJS;
 @NgModule({
   declarations: [
     AppComponent
@@ -25,7 +28,8 @@ import {AuthService} from './utils/auth.service';
     NgbModule,
     HttpClientModule,
     HttpClientJsonpModule,
-    NbToastrModule.forRoot()
+    NbToastrModule.forRoot(),
+    PlotlyModule
   ],
   providers: [
     AuthService,

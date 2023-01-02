@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../../utils/auth.service";
 import {NbToastrService} from "@nebular/theme";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
   loginFailed = false;
 
   constructor(public auth: AuthService,
-              private toastrService: NbToastrService) { }
+              private toastrService: NbToastrService,
+              private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -34,11 +36,15 @@ export class LoginComponent implements OnInit {
   }
 
   async login(email: string, password: string) {
-    console.log('1234567');
     try {
       this.loginResponse = await this.auth.login(email, password);
       console.log(this.loginResponse);
       localStorage.setItem('token', this.loginResponse.access_token);
+      if(this.loginResponse.is_admin) {
+        this.router.navigate(['app/pages/analytics']);
+      } else {
+        this.router.navigate(['app/pages/mail']);
+      }
     } catch (e: any) {
       this.toastrService.show(e.error.message, 'Login Failed', { status: 'warning' });
     }
