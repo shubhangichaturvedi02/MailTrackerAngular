@@ -18,7 +18,7 @@ import {PlotlyModule} from "angular-plotly.js";
 @NgModule({
   declarations: [
     AnalyticsComponent,
-    PagesComponent,
+    PagesComponent
   ],
   imports: [
     CommonModule,

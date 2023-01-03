@@ -1,63 +1,38 @@
 <nb-layout>
-
   <nb-layout-header>
-    <h3>Mail Analytics</h3>
+    <h3>Inbox</h3>
+    <div>
+    <button style="float: right" (click)="logout()">Logout</button>
+    </div>
   </nb-layout-header>
-
   <nb-layout-column>
     <nb-card>
       <nb-card-body>
 
         <nb-tabset>
-          <nb-tab tabTitle="Not Received">
+          <nb-tab tabTitle=" Received">
             <table class="table">
               <thead>
               <tr>
                 <th scope="col">Body</th>
-                <th scope="col">Sent Time</th>
                 <th scope="col">Subject</th>
-                <th scope="col">User Name</th>
+                <th scope="col">Received Time</th>
               </tr>
               </thead>
 
               <tbody>
-              <tr *ngFor="let mail of notmaildata">
+              <tr *ngFor="let mail of maildata">
                 <td>{{mail.body}}</td>
-                <td>{{mail.sent_time}}</td>
                 <td>{{mail.subject}}</td>
-                <td>{{mail.user_name}}</td>
-              </tr>
-              </tbody>
-            </table>
-
-          </nb-tab>
-          <nb-tab tabTitle="Received">
-            <table class="table">
-              <thead>
-              <tr>
-                <th scope="col">Body</th>
-                <th scope="col">Sent Time</th>
-                <th scope="col">Subject</th>
-                <th scope="col">User Name</th>
-              </tr>
-              </thead>
-
-              <tbody>
-              <tr *ngFor="let mail of recmaildata">
-                <td>{{mail.body}}</td>
-                <td>{{mail.sent_time}}</td>
-                <td>{{mail.subject}}</td>
-                <td>{{mail.user_name}}</td>
+                <td>{{mail.received_time}}</td>
               </tr>
               </tbody>
             </table>
 
           </nb-tab>
 
-          <nb-tab tabTitle="Stats">
-            <div id='myDiv'></div>
-            <plotly-plot [data]="data" [layout]="layout"></plotly-plot>
-          </nb-tab>
+
+
         </nb-tabset>
 
 

@@ -22,6 +22,22 @@ export class AuthService {
         return reject(err);
       }));
   }
+
+  signUp(name: string, email: string, password: string) {
+    const response: Observable<any> = this.http.post('http://127.0.0.1:5000/signup', {
+      name: name,
+      email: email,
+      password: password
+    });
+    return new Promise((resolve, reject) => response.subscribe(res => {
+      return resolve(res);
+    }, (err) => {
+      // HttpService.catchError(err);
+      return reject(err);
+    }));
+  }
+
+
   getToken() {
     const token: any = localStorage.getItem('token') ;
     return token;

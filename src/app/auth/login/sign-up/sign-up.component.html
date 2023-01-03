@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-md-4 offset-md-4 col-sm-6 offset-sm-3">
+    <div class="card auth">
+      <div class="card-body auth-card">
+<!--        <div class="auth-avatar">-->
+<!--          <img src="https://pluspng.com/img-png/user-png-icon-account-avatar-human-male-man-men-people-person-download-svg-download-png-edit-icon-512.png" alt="user" class="user-image">-->
+<!--        </div>-->
+        <form (submit)="(userData)">
+          <div class="form-group">
+            <label for=>Name : </label>
+            <input type="text" name="name" class="form-control" placeholder="Name" [(ngModel)]="name">
+          </div>
+          <div class="form-group">
+            <label for=>Email : </label>
+            <input type="text" name="email" class="form-control" placeholder="Email" [(ngModel)]="email">
+          </div>
+          <div class="form-group">
+            <label for=>Password : </label>
+            <input type="password" name="password" class="form-control" placeholder="********" [(ngModel)]="password">
+          </div>
+          <div class="form-group">
+            <label for=>Confirm Password : </label>
+            <input type="password" name="c_password" class="form-control" placeholder="********" [(ngModel)]="password">
+          </div>
+          <div class="text-center">
+            <button nbButton class="mt-4 float-end" status="primary" size="large" (click)="signUp(name, email, password)">Sign Up</button>
+          </div>
+          <div class="text-center login">
+            Already have an account ? <a routerLink="/auth/login">Login</a>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

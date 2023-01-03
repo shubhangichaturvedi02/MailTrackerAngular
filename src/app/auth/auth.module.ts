@@ -11,12 +11,14 @@ import {
   NbLayoutModule
 } from '@nebular/theme';
 import {FormsModule} from "@angular/forms";
+import { SignUpComponent } from './login/sign-up/sign-up.component';
 
 
 
 @NgModule({
   declarations: [
-    LoginComponent
+    LoginComponent,
+    SignUpComponent
   ],
     imports: [
         CommonModule,
